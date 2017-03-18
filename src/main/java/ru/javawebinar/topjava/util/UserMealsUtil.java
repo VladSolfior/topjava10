@@ -40,14 +40,17 @@ public class UserMealsUtil {
         // TODO return filtered list with correctly exceeded field
         List<UserMealWithExceed> result = new LinkedList<>();
 
-        int sumCalorioes = 0;
+        int sumCalories = 0;
         for (UserMeal userMeal: mealList) {
+            sumCalories+=userMeal.getCalories();
+        }
 
+        for (UserMeal userMeal: mealList) {
             LocalTime userMealTime = LocalTime.from(userMeal.getDateTime());
-            sumCalorioes+=userMeal.getCalories();
 
-            if (userMealTime.isAfter(startTime) && userMealTime.isBefore(endTime)) {
-                result.add(new UserMealWithExceed(userMeal.getDateTime(),userMeal.getDescription(),userMeal.getCalories(),userMeal.getCalories() > caloriesPerDay));
+            if (TimeUtil.isBetween(userMealTime,startTime, endTime)) {
+                result.add(new UserMealWithExceed(userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories(),
+                sumCalories > caloriesPerDay ? true : false));
             }
         }
 
