@@ -50,7 +50,7 @@ public class UserMealsUtil {
 
             if (TimeUtil.isBetween(userMealTime,startTime, endTime)) {
                 result.add(new UserMealWithExceed(userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories(),
-                sumCalories > caloriesPerDay ? true : false));
+                        sumCalories > caloriesPerDay));
             }
         }
 
