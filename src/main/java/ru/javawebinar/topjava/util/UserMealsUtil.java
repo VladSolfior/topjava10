@@ -30,7 +30,7 @@ public class UserMealsUtil {
         //to test
         List<UserMealWithExceed> mealWithExceeds = getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12,0), 2000);
         for (UserMealWithExceed meal : mealWithExceeds) {
-            System.out.println(meal.getDescription() + " hour: " + meal.getDateTime().getHour()+ " cal: " + meal.getCalories() + " exided: " + meal.isExceed());
+            System.out.println(meal);
         }
         //to test
 
