@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.util;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.model.UserMealWithExceed;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
@@ -42,13 +43,13 @@ public class UserMealsUtil {
 
         for (UserMeal userMeal : mealList) {
 
-            LocalTime userMealTime = LocalTime.from(userMeal.getDateTime());
+            LocalDate userMealDate = userMeal.getDateTime().toLocalDate();
             int sumCalories = 0;
 
-            if (TimeUtil.isBetween(userMealTime, startTime, endTime)) {
+            if (TimeUtil.isBetween(LocalTime.from(userMeal.getDateTime()), startTime, endTime)) {
 
                 for (UserMeal thisMeal : mealList) {
-                    if (thisMeal.getDateTime().getDayOfYear() == userMeal.getDateTime().getDayOfYear()) {
+                    if (thisMeal.getDateTime().toLocalDate() == userMealDate) {
                         sumCalories += thisMeal.getCalories();
                     }
                 }
