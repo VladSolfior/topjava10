@@ -44,15 +44,11 @@ public class UserMealsUtil {
         for (UserMeal userMeal : mealList) {
 
             LocalDate userMealDate = userMeal.getDateTime().toLocalDate();
-            int sumCalories = 0;
+            int sumCalories;
 
             if (TimeUtil.isBetween(LocalTime.from(userMeal.getDateTime()), startTime, endTime)) {
 
-                for (UserMeal thisMeal : mealList) {
-                    if (thisMeal.getDateTime().toLocalDate() == userMealDate) {
-                        sumCalories += thisMeal.getCalories();
-                    }
-                }
+                sumCalories = mealList.stream().filter(thisMeal -> thisMeal.getDateTime().toLocalDate() == userMealDate).mapToInt(UserMeal::getCalories).sum();
 
                 result.add(new UserMealWithExceed(userMeal.getDateTime(), userMeal.getDescription(),
                         userMeal.getCalories(), sumCalories > caloriesPerDay));
