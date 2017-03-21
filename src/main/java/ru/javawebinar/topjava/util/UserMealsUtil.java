@@ -48,7 +48,7 @@ public class UserMealsUtil {
 
             if (TimeUtil.isBetween(LocalTime.from(userMeal.getDateTime()), startTime, endTime)) {
 
-                sumCalories = mealList.stream().filter(thisMeal -> thisMeal.getDateTime().toLocalDate() == userMealDate).mapToInt(UserMeal::getCalories).sum();
+                sumCalories = mealList.stream().filter(thisMeal -> thisMeal.getDateTime().toLocalDate().equals(userMealDate)).mapToInt(UserMeal::getCalories).sum();
 
                 result.add(new UserMealWithExceed(userMeal.getDateTime(), userMeal.getDescription(),
                         userMeal.getCalories(), sumCalories > caloriesPerDay));
