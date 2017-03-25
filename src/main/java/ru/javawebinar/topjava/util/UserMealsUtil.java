@@ -53,8 +53,8 @@ public class UserMealsUtil {
 //                        userMeal.getCalories(), sumCalories > caloriesPerDay));
 //            }
 //        }
-        // new code
 
+        // new code
         Map<LocalDate, Integer> sumOfCaloriesByDate = mealList.stream()
                 .collect(Collectors.groupingBy(uMeal -> uMeal.getDateTime().toLocalDate(),
                         Collectors.summingInt(UserMeal::getCalories)));
