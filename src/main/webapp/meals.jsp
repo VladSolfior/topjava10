@@ -6,6 +6,13 @@
     <title>Meal list</title>
 </head>
 <body>
+
+<style>
+    .exceeded {color: red;}
+    .normal {color: forestgreen;}
+
+</style>
+
 <h2><a href="index.html">Home</a></h2>
 <h2>Meal list</h2>
 <table border="1">
@@ -21,24 +28,10 @@
         <c:forEach var="meal" items="${list}">
             <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealWithExceed"/>
             <tbody>
-            <tr>
-                <c:choose>
-                    <c:when test="${meal.exceed}">
-                        <td style="color: red">${meal.description}</td>
-                        <td style="color: red">${meal.calories}</td>
-                        <td style="color: red"><%=TimeUtil.toString(meal.getDateTime())%>
-                        </td>
-                    </c:when>
-                    <c:when test="${!meal.exceed}">
-                        <td style="color: forestgreen">${meal.description}</td>
-                        <td style="color: forestgreen">${meal.calories}</td>
-                        <td style="color: forestgreen"><%=TimeUtil.toString(meal.getDateTime())%>
-                        </td>
-                    </c:when>
-
-                </c:choose>
-
-
+            <tr class="${meal.exceed ? "exceeded": "normal"}">
+                <td>${meal.description}</td>
+                <td>${meal.calories}</td>
+                <td><%=TimeUtil.toString(meal.getDateTime())%></td>
             </tr>
             </tbody>
         </c:forEach>
