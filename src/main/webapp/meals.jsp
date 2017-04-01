@@ -1,3 +1,4 @@
+<%@ page import="ru.javawebinar.topjava.util.TimeUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -5,44 +6,47 @@
     <title>Meal list</title>
 </head>
 <body>
-    <h2><a href="index.html">Home</a></h2>
-    <h2>Meal list</h2>
-    <table>
-        <thead>
+<h2><a href="index.html">Home</a></h2>
+<h2>Meal list</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <td>Description</td>
+        <td>Calories</td>
+        <td>Date</td>
+    </tr>
+    </thead>
+
+    <c:if test="${ !empty list}">
+        <c:forEach var="meal" items="${list}">
+            <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealWithExceed"/>
+            <tbody>
             <tr>
-                <td>Description</td>
-                <td>Calories</td>
-                <td>Date</td>
+                <c:choose>
+                    <c:when test="${meal.exceed}">
+                        <td style="color: red">${meal.description}</td>
+                        <td style="color: red">${meal.calories}</td>
+                        <td style="color: red"><%=TimeUtil.toString(meal.getDateTime())%>
+                        </td>
+                    </c:when>
+                    <c:when test="${!meal.exceed}">
+                        <td style="color: forestgreen">${meal.description}</td>
+                        <td style="color: forestgreen">${meal.calories}</td>
+                        <td style="color: forestgreen"><%=TimeUtil.toString(meal.getDateTime())%>
+                        </td>
+                    </c:when>
+
+                </c:choose>
+
+
             </tr>
-        </thead>
-        
-        <c:if test="${ !empty list}">
-            <c:forEach var="elem" items="${list}">
-                <tbody>
-                <tr>
-                    <c:choose>
-                        <c:when test="${elem.exceed}">
-                            <td style="color: red" >${elem.description}</td>
-                            <td style="color: red" >${elem.calories}</td>
-                            <td style="color: red" >${elem.dateTime}</td>
-                        </c:when>
-                        <c:when test="${!elem.exceed}">
-                            <td style="color: forestgreen" >${elem.description}</td>
-                            <td style="color: forestgreen" >${elem.calories}</td>
-                            <td style="color: forestgreen" >${elem.dateTime}</td>
-                        </c:when>
+            </tbody>
+        </c:forEach>
 
-                    </c:choose>
+    </c:if>
 
 
-                </tr>
-                </tbody>
-            </c:forEach>
-
-        </c:if>
-        
-
-    </table>
+</table>
 
 </body>
 </html>
